@@ -1,6 +1,9 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Product, Invoice, AiPrediction } from "../types";
 
+// Declare process to fix TypeScript build error
+declare const process: any;
+
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const getInventoryPrediction = async (
