@@ -48,7 +48,7 @@ const ProductAnalytics: React.FC<ProductAnalyticsProps> = ({ products, invoices 
     });
 
     let data = Array.from(rawMap.entries())
-      .map(([date, qty]) => ({ date, real: qty, estimated: null as number | null }))
+      .map(([date, qty]) => ({ date, real: qty as number | null, estimated: null as number | null }))
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
     // 2. Filter by Time Range
@@ -65,7 +65,7 @@ const ProductAnalytics: React.FC<ProductAnalyticsProps> = ({ products, invoices 
     // 4. Create Projections (Visual Forecast)
     if (data.length > 1) {
        // Average sales per day in the visible range
-       const avgSales = data.reduce((acc, curr) => acc + curr.real, 0) / data.length;
+       const avgSales = data.reduce((acc, curr) => acc + (curr.real || 0), 0) / data.length;
        
        const lastItem = data[data.length - 1];
        // Connector point
